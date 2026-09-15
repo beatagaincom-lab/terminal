@@ -2,360 +2,286 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Terminal Tricks – echte, nützliche Terminal-Befehle für Git, PowerShell, macOS und Linux." />
-  <title>Terminal Tricks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Terminal Tricks – echte, verständlich erklärte Befehle für Git, PowerShell, macOS und Linux." />
+  <meta name="theme-color" content="#070a09" />
+  <title>Terminal Tricks — echte Commands, verständlich erklärt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="noise"></div>
+  <div class="page-noise" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="Terminal Tricks Startseite">
-      <span class="brand-mark">&gt;_</span>
-      <span>terminal<span class="accent">tricks</span></span>
-    </a>
+    <div class="topbar-inner">
+      <a class="brand clean-top" href="./" aria-label="Terminal Tricks – Startseite">
+        <span class="brand-mark" aria-hidden="true">&gt;_</span>
+        <span>terminal<span class="accent">tricks</span></span>
+      </a>
 
-    <nav class="nav">
-      <a href="#tricks">Tricks</a>
-      <a href="#playground">Playground</a>
-      <a href="#cheatsheet">Cheatsheet</a>
-    </nav>
+      <nav class="nav" aria-label="Hauptnavigation">
+        <a href="#learn">Verstehen</a>
+        <a href="#commands">Commands</a>
+        <a href="#playground">Playground</a>
+        <a href="#url-fragments"># erklärt</a>
+      </nav>
 
-    <button id="themeToggle" class="icon-btn" aria-label="Darstellung umschalten">◐</button>
+      <div class="top-actions">
+        <button id="openSearch" class="quick-search" type="button" aria-label="Befehlssuche öffnen">
+          <span>⌕ Suchen</span><kbd>/</kbd>
+        </button>
+        <button id="themeToggle" class="icon-btn" type="button" aria-label="Darstellung umschalten">◐</button>
+      </div>
+    </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="mono path">~/terminal-tricks</p>
-        <h1>Weniger klicken.<br><span>Mehr wissen.</span></h1>
+        <h1 id="hero-title">Nicht Befehle auswendig lernen.<br><span>Verstehen, was sie tun.</span></h1>
         <p class="lead">
-          Echte Terminal-Befehle, die im Alltag Zeit sparen – erklärt,
-          filterbar und mit einem Klick kopierbar.
+          Eine praktische Command-Library für Git, PowerShell, macOS und Linux –
+          mit echten Befehlen, genauer Erklärung, Risiko-Hinweisen und Copy-Button.
         </p>
 
         <div class="hero-actions">
-          <a class="btn primary" href="#tricks">Tricks entdecken</a>
-          <a class="btn ghost" href="#playground">Demo-Terminal öffnen</a>
+          <a class="btn primary" href="#commands">Commands entdecken <span aria-hidden="true">↓</span></a>
+          <a class="btn ghost" href="#learn">Terminal verstehen</a>
         </div>
 
-        <div class="meta-line mono">
-          <span><i class="dot green"></i> 18 echte Commands</span>
-          <span><i class="dot"></i> Windows · macOS · Linux · Git</span>
+        <div class="hero-meta mono" aria-label="Seitenumfang">
+          <span><i class="status-dot live"></i><strong id="commandCount">30</strong> echte Commands</span>
+          <span><i class="status-dot"></i>Git · PowerShell · macOS · Linux</span>
+          <span><i class="status-dot"></i>Keine Fake-Kommandos</span>
         </div>
       </div>
 
-      <div class="terminal-window" aria-label="Terminal Vorschau">
-        <div class="terminal-bar">
-          <div class="traffic"><i></i><i></i><i></i></div>
-          <span>bernard — zsh — 92×28</span>
-          <span></span>
+      <div class="terminal-shell hero-terminal" aria-label="Interaktive Terminal-Vorschau">
+        <div class="terminal-titlebar">
+          <div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="terminal-title mono">terminal-tricks — zsh</span>
+          <span class="terminal-status mono">safe demo</span>
         </div>
-        <div class="terminal-body mono">
-          <p><span class="prompt">bernard@dev</span> <span class="muted">~</span> <span class="cmd">git log --oneline -5</span></p>
-          <p><span class="hash">8c3d14a</span> feat: add command search</p>
-          <p><span class="hash">27a91fe</span> fix: mobile terminal spacing</p>
-          <p><span class="hash">a41f930</span> docs: explain port lookup</p>
-          <p><span class="hash">b18ac8d</span> feat: copy shortcuts</p>
-          <p><span class="hash">3f7c9a0</span> init terminal-tricks</p>
-          <p class="typing-row"><span class="prompt">bernard@dev</span> <span class="muted">~</span> <span id="typedCommand"></span><span class="cursor">▌</span></p>
+        <div class="terminal-screen mono">
+          <p><span class="prompt">bernard@dev</span> <span class="path-token">~/project</span> <span class="git-branch">git:(main)</span></p>
+          <p><span class="shell-symbol">$</span> <span class="command">git status --short</span></p>
+          <p><span class="git-modified"> M</span> styles.css</p>
+          <p><span class="git-added">??</span> notes.md</p>
+          <p class="terminal-gap"></p>
+          <p><span class="prompt">bernard@dev</span> <span class="path-token">~/project</span> <span class="git-branch">git:(main)</span></p>
+          <p class="typing-row"><span class="shell-symbol">$</span> <span id="typedCommand" class="command"></span><span class="cursor">▌</span></p>
+          <div class="terminal-explain">
+            <span class="explain-label">Was passiert?</span>
+            <span id="typedExplanation">Zeigt lokale Änderungen kompakt an.</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="tricks" class="section">
-      <div class="section-head">
+    <section id="learn" class="section learn-section">
+      <div class="section-head split-head">
+        <div>
+          <p class="mono eyebrow">TERMINAL-GRAMMATIK</p>
+          <h2>Ein Command ist kein Zauberspruch.</h2>
+        </div>
+        <p class="section-copy">
+          Die meisten Befehle bestehen aus denselben Bausteinen. Wenn du diese Struktur verstehst,
+          kannst du neue Commands viel schneller lesen.
+        </p>
+      </div>
+
+      <div class="syntax-lab">
+        <div class="syntax-code mono" aria-label="Beispielbefehl git log">
+          <span class="syntax-prompt">$</span>
+          <span class="syntax-command">git</span>
+          <span class="syntax-subcommand">log</span>
+          <span class="syntax-flag">--oneline</span>
+          <span class="syntax-flag">-5</span>
+        </div>
+        <div class="syntax-legend">
+          <div><span class="legend-mark command-mark"></span><strong>Programm</strong><p>Welches Werkzeug soll laufen? Hier: <code>git</code>.</p></div>
+          <div><span class="legend-mark subcommand-mark"></span><strong>Unterbefehl</strong><p>Welche Aktion soll Git ausführen? Hier: <code>log</code>.</p></div>
+          <div><span class="legend-mark flag-mark"></span><strong>Option / Flag</strong><p>Verändert die Ausgabe oder das Verhalten des Befehls.</p></div>
+        </div>
+      </div>
+
+      <div class="symbol-strip">
+        <article><code>~</code><h3>Home-Verzeichnis</h3><p>Steht meist für deinen persönlichen Benutzerordner.</p></article>
+        <article><code>.</code><h3>Aktueller Ordner</h3><p>Ein Punkt bedeutet: „genau hier, wo ich gerade bin“.</p></article>
+        <article><code>..</code><h3>Ein Ordner höher</h3><p>Zum übergeordneten Verzeichnis wechseln oder darauf verweisen.</p></article>
+        <article><code>|</code><h3>Pipe</h3><p>Schickt die Ausgabe eines Befehls als Eingabe an den nächsten.</p></article>
+        <article><code>&amp;&amp;</code><h3>Nur wenn erfolgreich</h3><p>Der zweite Befehl läuft nur, wenn der erste erfolgreich war.</p></article>
+        <article><code>#</code><h3>Kommentar in vielen Shells</h3><p>In Bash/Zsh markiert <code>#</code> häufig einen Kommentar – aber in einer URL bedeutet es etwas anderes.</p></article>
+      </div>
+    </section>
+
+    <section id="commands" class="section commands-section">
+      <div class="section-head split-head">
         <div>
           <p class="mono eyebrow">COMMAND LIBRARY</p>
-          <h2>Die Befehle, die man wirklich braucht.</h2>
+          <h2>Finde den Befehl für die Aufgabe.</h2>
         </div>
-        <p class="section-copy">Suche nach Aufgabe, Befehl oder Plattform. Alle Snippets sind für echte Terminals gedacht.</p>
+        <p class="section-copy">
+          Suche nach Problem, Plattform oder Begriff. Öffne eine Karte für eine genauere Erklärung,
+          bevor du einen Befehl ausführst.
+        </p>
       </div>
 
-      <div class="toolbar">
-        <label class="search-box">
-          <span>⌕</span>
-          <input id="searchInput" type="search" placeholder="z. B. port, git, dateien, ip …" autocomplete="off" />
+      <div class="command-toolbar" id="commandToolbar">
+        <label class="search-box" for="searchInput">
+          <span aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" placeholder="Suche z. B. port, branch, dateien, ip …" autocomplete="off" />
+          <kbd>/</kbd>
         </label>
 
-        <div id="filters" class="filters" aria-label="Plattformfilter">
-          <button class="filter active" data-filter="all">Alle</button>
-          <button class="filter" data-filter="git">Git</button>
-          <button class="filter" data-filter="powershell">PowerShell</button>
-          <button class="filter" data-filter="unix">macOS / Linux</button>
+        <div class="filters" id="platformFilters" aria-label="Plattformfilter">
+          <button class="filter active" type="button" data-filter="all">Alle</button>
+          <button class="filter" type="button" data-filter="git">Git</button>
+          <button class="filter" type="button" data-filter="powershell">PowerShell</button>
+          <button class="filter" type="button" data-filter="unix">macOS / Linux</button>
+        </div>
+
+        <div class="filter-secondary" aria-label="Risikofilter">
+          <label for="riskFilter">Risiko</label>
+          <select id="riskFilter">
+            <option value="all">Alle</option>
+            <option value="safe">Nur lesend</option>
+            <option value="write">Verändert etwas</option>
+            <option value="caution">Vorsicht</option>
+          </select>
         </div>
       </div>
 
-      <div id="commandGrid" class="command-grid">
-
-        <article class="command-card" data-tags="git history commits log letzte commits">
-          <div class="card-top">
-            <span class="pill git">Git</span>
-            <button class="copy-btn" data-copy="git log --oneline -20">Kopieren</button>
-          </div>
-          <h3>Commit-Historie kompakt</h3>
-          <p>Zeigt die letzten 20 Commits als kurze Einzeiler mit Hash und Nachricht.</p>
-          <pre><code>git log --oneline -20</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="git branch zweig wechseln branches">
-          <div class="card-top">
-            <span class="pill git">Git</span>
-            <button class="copy-btn" data-copy="git switch -c feature/meine-idee">Kopieren</button>
-          </div>
-          <h3>Neue Branch erstellen</h3>
-          <p>Erstellt eine neue Branch und wechselt sofort hinein.</p>
-          <pre><code>git switch -c feature/meine-idee</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="git status änderungen dateien staging">
-          <div class="card-top">
-            <span class="pill git">Git</span>
-            <button class="copy-btn" data-copy="git status --short">Kopieren</button>
-          </div>
-          <h3>Status ohne Textwand</h3>
-          <p>Zeigt geänderte, neue und gelöschte Dateien in einer sehr kompakten Form.</p>
-          <pre><code>git status --short</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="powershell windows port prozess pid netstat">
-          <div class="card-top">
-            <span class="pill powershell">PowerShell</span>
-            <button class="copy-btn" data-copy="Get-NetTCPConnection -LocalPort 3000 | Select-Object LocalAddress,LocalPort,State,OwningProcess">Kopieren</button>
-          </div>
-          <h3>Wer benutzt Port 3000?</h3>
-          <p>Findet unter Windows die Prozess-ID, die aktuell Port 3000 belegt.</p>
-          <pre><code>Get-NetTCPConnection -LocalPort 3000 |
-  Select-Object LocalAddress,LocalPort,State,OwningProcess</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="powershell windows dateien gross ordner speicher">
-          <div class="card-top">
-            <span class="pill powershell">PowerShell</span>
-            <button class="copy-btn" data-copy="Get-ChildItem -File -Recurse | Sort-Object Length -Descending | Select-Object -First 10 Name,Length,FullName">Kopieren</button>
-          </div>
-          <h3>Die 10 größten Dateien</h3>
-          <p>Durchsucht den aktuellen Ordner rekursiv und listet die größten Dateien.</p>
-          <pre><code>Get-ChildItem -File -Recurse |
-  Sort-Object Length -Descending |
-  Select-Object -First 10 Name,Length,FullName</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="powershell windows prozesse cpu task manager">
-          <div class="card-top">
-            <span class="pill powershell">PowerShell</span>
-            <button class="copy-btn" data-copy="Get-Process | Sort-Object CPU -Descending | Select-Object -First 10 Name,CPU,Id">Kopieren</button>
-          </div>
-          <h3>CPU-intensive Prozesse</h3>
-          <p>Zeigt die Prozesse mit der höchsten bisher verbrauchten CPU-Zeit.</p>
-          <pre><code>Get-Process |
-  Sort-Object CPU -Descending |
-  Select-Object -First 10 Name,CPU,Id</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="unix mac linux port prozess lsof">
-          <div class="card-top">
-            <span class="pill unix">macOS / Linux</span>
-            <button class="copy-btn" data-copy="lsof -i :3000">Kopieren</button>
-          </div>
-          <h3>Prozess auf Port finden</h3>
-          <p>Zeigt, welcher Prozess Port 3000 geöffnet hat.</p>
-          <pre><code>lsof -i :3000</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="unix mac linux ordner grösse speicher du sort">
-          <div class="card-top">
-            <span class="pill unix">macOS / Linux</span>
-            <button class="copy-btn" data-copy="du -sh ./* | sort -h">Kopieren</button>
-          </div>
-          <h3>Ordnergrößen sortieren</h3>
-          <p>Zeigt die Größe direkter Unterordner und sortiert sie aufsteigend.</p>
-          <pre><code>du -sh ./* | sort -h</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="unix mac linux dateien finden find geändert tage">
-          <div class="card-top">
-            <span class="pill unix">macOS / Linux</span>
-            <button class="copy-btn" data-copy="find . -type f -mtime -1">Kopieren</button>
-          </div>
-          <h3>Heute geänderte Dateien</h3>
-          <p>Findet Dateien unterhalb des aktuellen Ordners, die in den letzten 24 Stunden geändert wurden.</p>
-          <pre><code>find . -type f -mtime -1</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="git diff änderungen staged">
-          <div class="card-top">
-            <span class="pill git">Git</span>
-            <button class="copy-btn" data-copy="git diff --staged">Kopieren</button>
-          </div>
-          <h3>Staged Änderungen prüfen</h3>
-          <p>Zeigt exakt, was beim nächsten Commit enthalten wäre.</p>
-          <pre><code>git diff --staged</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="powershell windows json formatieren api">
-          <div class="card-top">
-            <span class="pill powershell">PowerShell</span>
-            <button class="copy-btn" data-copy="Get-Content .\data.json | ConvertFrom-Json | ConvertTo-Json -Depth 10">Kopieren</button>
-          </div>
-          <h3>JSON lesbar ausgeben</h3>
-          <p>Liest eine JSON-Datei ein und gibt sie sauber formatiert wieder aus.</p>
-          <pre><code>Get-Content .\data.json |
-  ConvertFrom-Json |
-  ConvertTo-Json -Depth 10</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="unix mac linux json python formatieren">
-          <div class="card-top">
-            <span class="pill unix">macOS / Linux</span>
-            <button class="copy-btn" data-copy="python3 -m json.tool data.json">Kopieren</button>
-          </div>
-          <h3>JSON mit Python formatieren</h3>
-          <p>Prüft und formatiert JSON direkt mit dem Python-Standardmodul.</p>
-          <pre><code>python3 -m json.tool data.json</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="git remote url repository github">
-          <div class="card-top">
-            <span class="pill git">Git</span>
-            <button class="copy-btn" data-copy="git remote -v">Kopieren</button>
-          </div>
-          <h3>Remote-URLs prüfen</h3>
-          <p>Zeigt, wohin Git für Fetch und Push verbunden ist.</p>
-          <pre><code>git remote -v</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="powershell windows ip netzwerk adresse">
-          <div class="card-top">
-            <span class="pill powershell">PowerShell</span>
-            <button class="copy-btn" data-copy="Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.IPAddress -notlike '169.254*'} | Select-Object InterfaceAlias,IPAddress">Kopieren</button>
-          </div>
-          <h3>Lokale IPv4-Adressen</h3>
-          <p>Listet die lokalen IPv4-Adressen samt Netzwerkadapter auf.</p>
-          <pre><code>Get-NetIPAddress -AddressFamily IPv4 |
-  Where-Object {$_.IPAddress -notlike '169.254*'} |
-  Select-Object InterfaceAlias,IPAddress</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="unix mac linux ip hostname adresse">
-          <div class="card-top">
-            <span class="pill unix">macOS / Linux</span>
-            <button class="copy-btn" data-copy="hostname -I 2>/dev/null || ipconfig getifaddr en0">Kopieren</button>
-          </div>
-          <h3>Lokale IP schnell anzeigen</h3>
-          <p>Linux nutzt meist <code>hostname -I</code>; auf macOS fällt der Befehl auf <code>ipconfig</code> zurück.</p>
-          <pre><code>hostname -I 2>/dev/null || ipconfig getifaddr en0</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="git datei zurücksetzen restore änderung">
-          <div class="card-top">
-            <span class="pill git">Git</span>
-            <button class="copy-btn" data-copy="git restore -- path/zur/datei">Kopieren</button>
-          </div>
-          <h3>Lokale Datei zurücksetzen</h3>
-          <p>Verwirft nicht-gestagete Änderungen an genau einer Datei.</p>
-          <pre><code>git restore -- path/zur/datei</code></pre>
-          <div class="warning">Achtung: lokale Änderungen an dieser Datei gehen verloren.</div>
-        </article>
-
-        <article class="command-card" data-tags="powershell windows history befehle verlauf">
-          <div class="card-top">
-            <span class="pill powershell">PowerShell</span>
-            <button class="copy-btn" data-copy="Get-History | Select-Object -Last 20">Kopieren</button>
-          </div>
-          <h3>Letzte Befehle ansehen</h3>
-          <p>Zeigt die letzten PowerShell-Befehle der aktuellen Sitzung.</p>
-          <pre><code>Get-History | Select-Object -Last 20</code></pre>
-        </article>
-
-        <article class="command-card" data-tags="unix mac linux history befehle verlauf">
-          <div class="card-top">
-            <span class="pill unix">macOS / Linux</span>
-            <button class="copy-btn" data-copy="history | tail -20">Kopieren</button>
-          </div>
-          <h3>Letzte Shell-Befehle</h3>
-          <p>Zeigt die letzten 20 Einträge des Shell-Verlaufs.</p>
-          <pre><code>history | tail -20</code></pre>
-        </article>
+      <div class="results-line mono">
+        <span><strong id="resultCount">30</strong> Treffer</span>
+        <button id="clearFilters" type="button">Filter zurücksetzen</button>
       </div>
 
-      <p id="emptyState" class="empty-state hidden">Kein Trick passt zu deiner Suche.</p>
-    </section>
-
-    <section id="playground" class="section split-section">
-      <div class="section-copy-block">
-        <p class="mono eyebrow">SAFE PLAYGROUND</p>
-        <h2>Probier die Denkweise aus.</h2>
-        <p>
-          Dieses Mini-Terminal führt absichtlich keine Systembefehle aus.
-          Es simuliert nur ein paar harmlose Beispiele direkt im Browser.
-        </p>
-        <div class="mini-help mono">
-          <span>help</span>
-          <span>whoami</span>
-          <span>pwd</span>
-          <span>ls</span>
-          <span>git status</span>
-          <span>clear</span>
-        </div>
-      </div>
-
-      <div class="terminal-window playground">
-        <div class="terminal-bar">
-          <div class="traffic"><i></i><i></i><i></i></div>
-          <span>demo — browser sandbox</span>
-          <span></span>
-        </div>
-        <div id="terminalOutput" class="terminal-body mono output">
-          <p class="muted">Terminal Tricks Browser Sandbox. Tippe <span class="cmd">help</span>.</p>
-        </div>
-        <form id="terminalForm" class="terminal-input-row mono">
-          <span class="prompt">visitor@terminaltricks</span>
-          <span class="muted">~</span>
-          <input id="terminalInput" autocomplete="off" spellcheck="false" aria-label="Demo-Terminal Eingabe" />
-        </form>
+      <div id="commandGrid" class="command-grid" aria-live="polite"></div>
+      <div id="emptyState" class="empty-state hidden">
+        <span class="mono">$ find command</span>
+        <h3>Nichts gefunden.</h3>
+        <p>Versuch einen allgemeineren Begriff oder setz die Filter zurück.</p>
       </div>
     </section>
 
-    <section id="cheatsheet" class="section cheatsheet">
-      <div class="section-head">
+    <section class="section workflow-section">
+      <div class="workflow-copy">
+        <p class="mono eyebrow">BEGINNER PATH</p>
+        <h2>Diese sechs Commands zuerst lernen.</h2>
+        <p>Wenn du gerade anfängst, bringen dir diese Befehle mehr als 100 exotische Tricks.</p>
+      </div>
+      <ol class="workflow-list">
+        <li><span>01</span><div><code>pwd</code><strong>Wo bin ich?</strong><p>Zeigt deinen aktuellen Ordner.</p></div></li>
+        <li><span>02</span><div><code>ls / Get-ChildItem</code><strong>Was liegt hier?</strong><p>Listet Dateien und Ordner auf.</p></div></li>
+        <li><span>03</span><div><code>cd</code><strong>Ordner wechseln</strong><p>Bewegt dich durch die Verzeichnisstruktur.</p></div></li>
+        <li><span>04</span><div><code>git status</code><strong>Was hat sich geändert?</strong><p>Dein Sicherheitscheck vor Git-Aktionen.</p></div></li>
+        <li><span>05</span><div><code>git diff</code><strong>Was genau hat sich geändert?</strong><p>Zeigt die tatsächlichen Textunterschiede.</p></div></li>
+        <li><span>06</span><div><code>history</code><strong>Was habe ich zuletzt gemacht?</strong><p>Hilft beim Wiederfinden alter Befehle.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="playground" class="section playground-section">
+      <div class="section-head split-head">
         <div>
-          <p class="mono eyebrow">CHEATSHEET</p>
-          <h2>Merken statt googeln.</h2>
+          <p class="mono eyebrow">SAFE PLAYGROUND</p>
+          <h2>Tippen, ohne dein System zu verändern.</h2>
         </div>
+        <p class="section-copy">
+          Diese Konsole läuft ausschließlich im Browser. Sie simuliert ausgewählte Befehle und führt keine echten Systemkommandos aus.
+        </p>
       </div>
 
-      <div class="cheat-table">
-        <div class="cheat-row cheat-head">
-          <span>Aufgabe</span><span>Git</span><span>Terminal</span>
+      <div class="playground-layout">
+        <div class="playground-help">
+          <h3>Probiere:</h3>
+          <div class="suggestions mono" id="suggestions">
+            <button type="button" data-demo="help">help</button>
+            <button type="button" data-demo="pwd">pwd</button>
+            <button type="button" data-demo="ls">ls</button>
+            <button type="button" data-demo="git status">git status</button>
+            <button type="button" data-demo="git log --oneline -5">git log --oneline -5</button>
+            <button type="button" data-demo="whoami">whoami</button>
+            <button type="button" data-demo="clear">clear</button>
+          </div>
+          <p class="playground-note">Tipp: Mit ↑ und ↓ kannst du durch deine Demo-Historie gehen.</p>
         </div>
-        <div class="cheat-row">
-          <span>Status</span><code>git status --short</code><code>pwd</code>
+
+        <div class="terminal-shell playground-terminal">
+          <div class="terminal-titlebar">
+            <div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span class="terminal-title mono">browser sandbox</span>
+            <span class="terminal-status mono">no system access</span>
+          </div>
+          <div id="terminalOutput" class="terminal-screen terminal-output mono" aria-live="polite">
+            <p class="muted">Terminal Tricks Sandbox. Tippe <span class="command">help</span>.</p>
+          </div>
+          <form id="terminalForm" class="terminal-input-row mono">
+            <span class="prompt">visitor@terminaltricks</span>
+            <span class="path-token">~</span>
+            <span class="shell-symbol">$</span>
+            <input id="terminalInput" autocomplete="off" spellcheck="false" aria-label="Demo-Terminal Eingabe" />
+          </form>
         </div>
-        <div class="cheat-row">
-          <span>Verlauf</span><code>git log --oneline -20</code><code>history | tail -20</code>
+      </div>
+    </section>
+
+    <section id="url-fragments" class="section fragment-section">
+      <div class="fragment-panel">
+        <div class="fragment-copy">
+          <p class="mono eyebrow">URL-GRAMMATIK</p>
+          <h2>Was bedeutet <code>#top</code> in der URL?</h2>
+          <p>
+            Der Teil ab dem Rautezeichen heißt technisch <strong>URL-Fragment</strong> oder
+            <strong>Fragment Identifier</strong>. Umgangssprachlich sagt man auch <strong>Hash</strong>,
+            <strong>Anker</strong> oder <strong>Anchor-Link</strong>.
+          </p>
+          <p>
+            <code>#top</code> bedeutet: „Springe auf dieser Seite zu dem Element mit
+            <code>id=&quot;top&quot;</code>.“ Der Browser lädt dafür normalerweise keine neue Seite vom Server.
+          </p>
         </div>
-        <div class="cheat-row">
-          <span>Änderungen</span><code>git diff</code><code>ls -la</code>
-        </div>
-        <div class="cheat-row">
-          <span>Neue Branch</span><code>git switch -c name</code><code>mkdir name</code>
+
+        <div class="fragment-demo mono">
+          <div class="fake-url">
+            <span class="url-base">https://beatagaincom-lab.github.io/terminal/</span><span class="url-fragment">#top</span>
+          </div>
+          <div class="fragment-arrow">↓</div>
+          <pre><code>&lt;main id="top"&gt;
+  …
+&lt;/main&gt;</code></pre>
+          <div class="fragment-note">#top ↔ id="top"</div>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="brand small"><span class="brand-mark">&gt;_</span><span>terminal<span class="accent">tricks</span></span></div>
-    <p>Built for people who want to understand the terminal, not fear it.</p>
-    <a href="#top">Nach oben ↑</a>
+    <div class="footer-inner">
+      <div>
+        <a class="brand clean-top" href="./"><span class="brand-mark">&gt;_</span><span>terminal<span class="accent">tricks</span></span></a>
+        <p>Echte Commands. Verständlich erklärt. Kein Terminal-Theater.</p>
+      </div>
+      <button id="backToTop" class="footer-top" type="button">Nach oben ↑</button>
+    </div>
   </footer>
 
   <div id="toast" class="toast" role="status" aria-live="polite">Kopiert.</div>
+
+  <dialog id="searchDialog" class="search-dialog">
+    <form method="dialog" class="dialog-shell">
+      <div class="dialog-search-row">
+        <span aria-hidden="true">⌕</span>
+        <input id="dialogSearch" type="search" placeholder="Command suchen …" autocomplete="off" />
+        <button class="dialog-close" value="cancel" aria-label="Suche schließen">Esc</button>
+      </div>
+      <div id="dialogResults" class="dialog-results"></div>
+    </form>
+  </dialog>
+
   <script src="script.js"></script>
 </body>
 </html>
